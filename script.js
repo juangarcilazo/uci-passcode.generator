@@ -24,25 +24,31 @@ function getRandomInteger(max) {
 }
 
 
-// Function to generate password
 function generatePassword() {
+  // Function to generate password
+
+var passwordLength = prompt('How many characters would you like your Password to be? (8min - 128max)', '9')
 // Step 1 Ask if how many characters does the user want the password to be?
-  var passwordLength = prompt('How many characters would you like your Password to be? (8min - 128max)', '9')
 
+  if (passwordLength > 128 || passwordLength < 8) {
+    alert('Invalid password length! Must be between 8 and 128 characters')
+    return generatePassword();
+    // if the password length greater than 128 or less than 8; alert that they need to RE-Do it
+}
+var useUppercase = confirm('Would you like to include Uppercase letters?')
 // Step 2 Ask if the user wants to use uppercase
-  var useUppercase = confirm('Would you like to include Uppercase letters?')
 
+var useLowercase = confirm('Would you like to use Lowercase letters?')
 // Step 3 Ask if the user wants to use lowercase
-  var useLowercase = confirm('Would you like to use Lowercase letters?')
 
+var useNumbers = confirm('Would you like to use Numbers?')
 // Step 4 Ask if the user wants to use numbers
-  var useNumbers = confirm('Would you like to use Numbers?')
 
+var useSpecialCharacters = confirm('Would you like to include Special Characters?')
 // Step 5 Ask if the user wants to use special characters
-  var useSpecialCharacters = confirm('Would you like to include Special Characters?')
-//console.log(passwordLength, useUppercase, useLowercase, useNumbers, useSpecialCharacters)
+   //console.log(passwordLength, useUppercase, useLowercase, useNumbers, useSpecialCharacters)
 
-// Arrange the chosen answers into a random password that has the characters, numbers, and letters with the appropriate length.
+
 // Create the structure of potential characters
 var potentialCharacters = [] 
 if (useUppercase) {
@@ -56,8 +62,14 @@ if (useUppercase) {
   }
   if (useUppercase) {
     potentialCharacters = potentialCharacters.concat(special)
+  } 
+  //if no options are selected they did it wrong and need to try again
+  else {
+    alert('Must select at Least 2 options, Try Again!')
+    return generatePassword();
   }
 
+  // Arrange the chosen answers into a random password that has the characters, numbers, and letters with the appropriate length.
   //Create the password of "passwordLength"
   var password = ''
   for (var i = 0; i < passwordLength; i++) {
