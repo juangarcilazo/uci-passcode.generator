@@ -7,6 +7,7 @@ var lowercase = uppercase.map(letter => letter.toLowerCase())
 var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 var special = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "=", "+", "[", "]", "{", "}", "|", ";", ":", "'", ",", ".", "<", ">", "/", "?", "~", "`"]
 
+
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
@@ -19,61 +20,63 @@ function writePassword() {
 generateBtn.addEventListener("click", writePassword);
 
 
+//funtion to generate random integers
 function getRandomInteger(max) {
-  return Math.ceil(Math.random() * (max))
+  return Math.floor(Math.random() * (max))
 }
 
 
+// Function to generate password
 function generatePassword() {
-  // Function to generate password
-
-var passwordLength = prompt('How many characters would you like your Password to be? (8min - 128max)', '9')
 // Step 1 Ask if how many characters does the user want the password to be?
+var passwordLength = prompt('How many characters would you like your Password to be? (8min - 128max)', '9')
 
-  if (passwordLength > 128 || passwordLength < 8) {
+// if the password length greater than 128 or less than 8; alert that they need to RE-Do it
+if (passwordLength > 128 || passwordLength < 8) {
     alert('Invalid password length! Must be between 8 and 128 characters')
     return generatePassword();
-    // if the password length greater than 128 or less than 8; alert that they need to RE-Do it
 }
-var useUppercase = confirm('Would you like to include Uppercase letters?')
+
 // Step 2 Ask if the user wants to use uppercase
-
-var useLowercase = confirm('Would you like to use Lowercase letters?')
+var useUppercase = confirm('Would you like to include Uppercase letters?')
 // Step 3 Ask if the user wants to use lowercase
-
-var useNumbers = confirm('Would you like to use Numbers?')
+var useLowercase = confirm('Would you like to use Lowercase letters?')
 // Step 4 Ask if the user wants to use numbers
-
-var useSpecialCharacters = confirm('Would you like to include Special Characters?')
+var useNumbers = confirm('Would you like to use Numbers?')
 // Step 5 Ask if the user wants to use special characters
-   //console.log(passwordLength, useUppercase, useLowercase, useNumbers, useSpecialCharacters)
+var useSpecialCharacters = confirm('Would you like to include Special Characters?')
+ //console.log(passwordLength, useUppercase, useLowercase, useNumbers, useSpecialCharacters)
 
+
+ //if no options are selected they did it wrong and need to try again 
+  if (useUppercase === false && useLowercase === false && useNumbers === false && useSpecialCharacters === false){
+    alert('You must choose at Least ONE option!')
+    return generatePassword();
+  }
 
 // Create the structure of potential characters
 var potentialCharacters = [] 
-if (useUppercase) {
+  if (useUppercase) {
     potentialCharacters = potentialCharacters.concat(uppercase)
   }
   if (useLowercase) {
     potentialCharacters = potentialCharacters.concat(lowercase)
   }
+  
   if (useNumbers) {
-    potentialCharacters = potentialCharacters.concat(numbers)
+  potentialCharacters = potentialCharacters.concat(numbers)
   }
-  if (useUppercase) {
-    potentialCharacters = potentialCharacters.concat(special)
+  if (useSpecialCharacters) {
+  potentialCharacters = potentialCharacters.concat(special)
   } 
-  //if no options are selected they did it wrong and need to try again
-  else {
-    alert('Must select at Least 2 options, Try Again!')
-    return generatePassword();
-  }
+  //console.log(potentialCharacters)
 
-  // Arrange the chosen answers into a random password that has the characters, numbers, and letters with the appropriate length.
+
+
   //Create the password of "passwordLength"
   var password = ''
   for (var i = 0; i < passwordLength; i++) {
     password = password + potentialCharacters[getRandomInteger(potentialCharacters.length)]
   }
-  return password
-}
+  return password 
+} 
